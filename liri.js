@@ -18,6 +18,8 @@ switch (command){
     case "spotify-this-song":
         spotifyThisSong();
         break;
+    case "movie-this":
+        omdbThis();
 }
 
 function concertThis() {
@@ -39,12 +41,30 @@ function spotifyThisSong() {
     spotify.search({ type: 'track', query: argument }, function(err, data) {
         if (err) {
           return console.log('Error occurred: ' + err);
+        } else {
+            for (var i = 0; i < data.tracks.items.length; i++) {
+                var songData = data.tracks.items[i];
+
+                console.log("Song: " + songData.name + "\n" + "Artist: " + songData.artists[0].name + "\n" + "Preview link: " + songData.preview_url + "\n" + "Album: " + songData.album.name);
+                    if (err) {
+                        return console.log("error occured: " + err);
+                    }
+            }
         }
        
-     data.tracks.items.forEach(function(item) {
-        //  console.log(item);
-     }); 
-     console.log(Object.keys(data.tracks.items[0]))
-      });
+    //  data.tracks.items.forEach(function(item) {
+    //     //  console.log(item);
+    //  }); 
+    //  console.log(Object.keys(data.tracks.items[0]))
+    //   });
 
+}
+
+function omdbThis() {
+
+    var queryUrl = "http://www.omdbapi.com/?t=" + inputs + "&y=&plot=short&apikey=40e9cece";
+
+    request(queryUrl, function(error, response, body) {
+
+    })
 }
